@@ -1,4 +1,5 @@
 import adapter from '@sveltejs/adapter-auto';
+import { vitePreprocess } from '@sveltejs/kit/vite';
 
 // This config is ignored and replaced with one of the configs in the shared folder when a project is created.
 
@@ -6,7 +7,8 @@ import adapter from '@sveltejs/adapter-auto';
 const config = {
 	kit: {
 		adapter: adapter()
-	}
+	},
+	preprocess: vitePreprocess()
 };
 
 export default config;
