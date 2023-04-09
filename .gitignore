@@ -12,3 +12,7 @@
 /templates/*/.netlify
 /templates/*/dist
 /templates/*/package
+.DS_Store
+node_modules
+dist
+.svelte-kit
