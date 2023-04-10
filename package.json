@@ -1,6 +1,6 @@
 {
 	"name": "create-svelteway",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"license": "MIT",
 	"bin": "./bin.js",
 	"main": "./index.js",
@@ -35,6 +35,17 @@
 		"utils.js",
 		"types"
 	],
+	"author": "Elikelier Polite",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/elikelierpolite/create-svelteway.git"
+	  },
+	  "keywords": [
+		"svelte",
+		"sveltekit",
+		"svelteui",
+		"svelteway"
+	  ],
 	"types": "types/index.d.ts",
 	"type": "module"
 }
