@@ -1,6 +1,6 @@
 {
 	"name": "create-svelteway",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license": "MIT",
 	"bin": "./bin.js",
 	"main": "./index.js",
@@ -26,8 +26,7 @@
 		"test": "npm build && uvu test",
 		"check": "tsc",
 		"lint": "prettier --check . --config ../../.prettierrc --ignore-path ../../.gitignore --ignore-path .gitignore --plugin prettier-plugin-svelte --plugin-search-dir=.",
-		"format": "npm lint --write",
-		"postpublish": "echo \"Updating template repo\" && bash ./scripts/update-template-repo.sh"
+		"format": "npm lint --write"
 	},
 	"files": [
 		"index.js",
