@@ -3,8 +3,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "~DEV~",
-		"build": "~BUILD~",
+		"dev": "svelteway dev && vite build",
+		"build": "svelteway build && vite build",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
