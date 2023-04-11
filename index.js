@@ -31,6 +31,8 @@ function write_template_files(template, types, name, cwd) {
 		mkdirp(path.dirname(dest));
 
 		fs.writeFileSync(dest, file.contents.replace(/~TODO~/g, name));
+		fs.writeFileSync(dest, file.contents.replace(/~DEV~/g, 'svelteway dev && vite build'));
+		fs.writeFileSync(dest, file.contents.replace(/~BUILD~/g, 'svelteway build && vite build'));
 	});
 }
 
