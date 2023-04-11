@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "svelteway dev && vite dev",
-		"build": "svelteway build vite build",
+		"build": "svelteway build && vite build",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
@@ -12,7 +12,7 @@
 		"@sveltejs/kit": "^1.5.0",
 		"svelte": "^3.54.0",
 		"vite": "^4.0.0",
-		"svelteway": "^0.0.35",
+		"svelteway": "^0.0.36",
 		"daisyui": "^2.51.4",
 		"autoprefixer": "^10.4.14",
 		"postcss": "^8.4.21",
