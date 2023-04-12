@@ -1,6 +1,6 @@
 <script>
   import "../app.css";
-  import Layout from "svelteway";
+  import { Layout } from "svelteway";
   export let data;
 </script>
 

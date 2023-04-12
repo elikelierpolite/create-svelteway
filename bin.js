@@ -124,16 +124,67 @@ await create(cwd, {
 
 p.outro(`Your project is ready!`);
 
+const currentDirectory = process.cwd().replace(/\\/g, "/");
+fs.mkdirSync(`${currentDirectory}//${cwd}/src/routes/api`);
+const bufTs = Buffer.from(
+  `import type { LayoutServerLoad } from './$types';
+  import { cwd } from 'process';
+  import * as fs from 'fs';
+  
+  export const load = (async ({ route }) => {
+    const currentDirectory = cwd().replace(/\\\\/g, '/')
+    const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
+    const content = await fs.promises.readFile(fileToRead);
+    return {
+      data: {
+        source: content.toString('utf8'),
+        file: fileToRead,
+      }
+    };
+  }) satisfies LayoutServerLoad;
+  `,
+  "utf8"
+);
+const bufJs = Buffer.from(
+  `import { cwd } from 'process';
+	import * as fs from 'fs';
+	
+	export const load = (async ({ route }) => {
+	  const currentDirectory = cwd().replace(/\\\\/g, '/')
+	  const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
+	  const content = await fs.promises.readFile(fileToRead);
+		return {
+		  data: {
+		  source: content.toString('utf8'),
+		  file: fileToRead,
+		}
+		};
+	})`,
+  "utf8"
+);
 if (options.types === "typescript") {
   console.log(bold("✔ Typescript"));
   console.log('  Inside Svelte components, use <script lang="ts">\n');
+  fs.writeFileSync(
+    `${currentDirectory}/${cwd}/src/routes/+layout.server.ts`,
+    bufTs
+  );
 } else if (options.types === "checkjs") {
   console.log(bold("✔ Type-checked JavaScript"));
   console.log(cyan("  https://www.typescriptlang.org/tsconfig#checkJs\n"));
+  fs.writeFileSync(
+    `${currentDirectory}/${cwd}/src/routes/+layout.server.js`,
+    bufJs
+  );
 } else if (options.template === "skeletonlib") {
   const warning = yellow("▲");
   console.log(
     `${warning} You chose to not add type checking, but TypeScript will still be installed in order to generate type definitions when building the library\n`
+  );
+} else {
+  fs.writeFileSync(
+    `${currentDirectory}/${cwd}/src/routes/+layout.server.js`,
+    bufJs
   );
 }
 
@@ -178,52 +229,3 @@ console.log(`  ${i++}: ${bold(cyan("npm run dev -- --open"))}`);
 
 console.log(`\nTo close the dev server, hit ${bold(cyan("Ctrl-C"))}`);
 console.log(`\nStuck? Visit us at ${cyan("https://svelte.dev/chat")}`);
-const currentDirectory = process.cwd().replace(/\\/g, "/");
-fs.mkdirSync(`${currentDirectory}//${cwd}/src/routes/api`);
-const bufTs = Buffer.from(
-  `import type { LayoutServerLoad } from './$types';
-  import { cwd } from 'process';
-  import * as fs from 'fs';
-  
-  export const load = (async ({ route }) => {
-    const currentDirectory = cwd().replace(/\\\\/g, '/')
-    const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
-    const content = await fs.promises.readFile(fileToRead);
-    return {
-      data: {
-        source: content.toString('utf8'),
-        file: fileToRead,
-      }
-    };
-  }) satisfies LayoutServerLoad;
-  `,
-  "utf8"
-);
-const bufJs = Buffer.from(
-  `import { cwd } from 'process';
-	import * as fs from 'fs';
-	
-	export const load = (async ({ route }) => {
-	  const currentDirectory = cwd().replace(/\\\\/g, '/')
-	  const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
-	  const content = await fs.promises.readFile(fileToRead);
-		return {
-		  data: {
-		  source: content.toString('utf8'),
-		  file: fileToRead,
-		}
-		};
-	})`,
-  "utf8"
-);
-if (options.types === "typescript") {
-  fs.writeFileSync(
-    `${currentDirectory}/${cwd}/src/routes/+layout.server.ts`,
-    bufTs
-  );
-} else {
-  fs.writeFileSync(
-    `${currentDirectory}/${cwd}/src/routes/+layout.server.js`,
-    bufJs
-  );
-}

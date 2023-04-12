@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./src/routes/**/*.{svelte,js,ts}",
     "./src/lib/**/*.{svelte,js,ts}",
+    "./node_modules/svelteway/dist/**/*.{html,js,svelte,ts}",
   ],
   theme: {
     extend: {},
