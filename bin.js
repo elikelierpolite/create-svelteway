@@ -179,29 +179,24 @@ console.log(`  ${i++}: ${bold(cyan("npm run dev -- --open"))}`);
 console.log(`\nTo close the dev server, hit ${bold(cyan("Ctrl-C"))}`);
 console.log(`\nStuck? Visit us at ${cyan("https://svelte.dev/chat")}`);
 const currentDirectory = process.cwd().replace(/\\/g, "/");
-fs.mkdirSync(`${currentDirectory}/src/routes/api`);
+fs.mkdirSync(`${currentDirectory}//${cwd}/src/routes/api`);
 const bufTs = Buffer.from(
-  `import type { Actions } from './$types';
-import { redirect } from '@sveltejs/kit';
-import { Buffer } from 'node:buffer';
-import * as fs from 'fs';
-
-export const actions = {
-	default: async ({ request }) => {
-	const data = await request.formData()
-		const path = data.get('path');
-		const swc = data.get('swc');
-		const buf = Buffer.from(swc, 'utf8');
-		try {
-			if (swc) {
-				fs.writeFileSync(path, buf);
-			}
-			throw redirect(307, data.get('redirectTo'));
-		} catch (err) {
-			console.error(err);
-		}
-	}
-} satisfies Actions;`,
+  `import type { LayoutServerLoad } from './$types';
+  import { cwd } from 'process';
+  import * as fs from 'fs';
+  
+  export const load = (async ({ route }) => {
+    const currentDirectory = cwd().replace(/\\/g, '/')
+    const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
+    const content = await fs.promises.readFile(fileToRead);
+    return {
+      data: {
+        source: content.toString('utf8'),
+        file: fileToRead,
+      }
+    };
+  }) satisfies LayoutServerLoad;
+  `,
   "utf8"
 );
 const bufJs = Buffer.from(
@@ -210,7 +205,7 @@ const bufJs = Buffer.from(
 	
 	export const load = (async ({ route }) => {
 	  const currentDirectory = cwd().replace(/\\/g, '/')
-	  const fileToRead = route.id == '/' ? '${currentDirectory}/src/routes/+page.svelte' : '${currentDirectory}/src/routes/${route.id}/+page.svelte'
+	  const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
 	  const content = await fs.promises.readFile(fileToRead);
 		return {
 		  data: {
@@ -222,8 +217,13 @@ const bufJs = Buffer.from(
   "utf8"
 );
 if (options.types === "typescript") {
-  fs.writeFileSync(`${currentDirectory}/src/routes/+layout.server.ts`, bufTs);
+  fs.writeFileSync(
+    `${currentDirectory}/${cwd}/src/routes/+layout.server.ts`,
+    bufTs
+  );
 } else {
-  fs.writeFileSync(`${currentDirectory}/src/routes/+layout.server.js`, bufTs);
+  fs.writeFileSync(
+    `${currentDirectory}/${cwd}/src/routes/+layout.server.js`,
+    bufJs
+  );
 }
-console.log(process.cwd());
