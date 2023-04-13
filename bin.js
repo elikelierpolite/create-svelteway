@@ -186,7 +186,7 @@ const bufTs = Buffer.from(
   import * as fs from 'fs';
   
   export const load = (async ({ route }) => {
-    const currentDirectory = cwd().replace(/\\/g, '/')
+    const currentDirectory = cwd().replace(/\\\\/g, '/')
     const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
     const content = await fs.promises.readFile(fileToRead);
     return {
@@ -204,7 +204,7 @@ const bufJs = Buffer.from(
 	import * as fs from 'fs';
 	
 	export const load = (async ({ route }) => {
-	  const currentDirectory = cwd().replace(/\\/g, '/')
+	  const currentDirectory = cwd().replace(/\\\\/g, '/')
 	  const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
 	  const content = await fs.promises.readFile(fileToRead);
 		return {

@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "svelteway dev && vite build",
+		"dev": "svelteway dev && vite dev",
 		"build": "svelteway build && vite build",
 		"preview": "vite preview"
 	},
@@ -12,7 +12,7 @@
 		"@sveltejs/kit": "^1.5.0",
 		"svelte": "^3.54.0",
 		"vite": "^4.0.0",
-		"svelteway": "^0.0.38",
+		"svelteway": "^0.0.40",
 		"daisyui": "^2.51.4",
 		"autoprefixer": "^10.4.14",
 		"postcss": "^8.4.21",
