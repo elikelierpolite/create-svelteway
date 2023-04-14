@@ -2,8 +2,11 @@
   import "../app.css";
   import { Layout } from "svelteway";
   export let data;
+  let theme = JSON.parse(data.data.theme);
 </script>
 
 <Layout {data}>
-  <slot />
+  <div data-theme={theme}>
+    <slot />
+  </div>
 </Layout>
