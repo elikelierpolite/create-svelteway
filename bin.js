@@ -64,7 +64,6 @@ const options = await p.group(
           };
         }),
       }),
-
     types: () =>
       p.select({
         message: "Add type checking with TypeScript?",
@@ -124,15 +123,15 @@ await create(cwd, {
 
 p.outro(`Your project is ready!`);
 
-const currentDirectory = process.cwd().replace(/\\/g, "/");
+const currentDirectory = process.cwd()
 fs.mkdirSync(`${currentDirectory}//${cwd}/src/routes/api`);
 const bufTs = Buffer.from(
   `import type { LayoutServerLoad } from './$types';
   import { cwd } from 'process';
-  import * as fs from 'fs';
+  import fs from 'node:fs';
   
   export const load = (async ({ route }) => {
-    const currentDirectory = cwd().replace(/\\\\/g, '/')
+    const currentDirectory = cwd()
     const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
     const themeFile = \`\${currentDirectory}/static/theme.txt\`
     const content = await fs.promises.readFile(fileToRead);
@@ -150,10 +149,10 @@ const bufTs = Buffer.from(
 );
 const bufJs = Buffer.from(
   `import { cwd } from 'process';
-	import * as fs from 'fs';
+	import fs from 'node:fs';
 	
 	export const load = (async ({ route }) => {
-	  const currentDirectory = cwd().replace(/\\\\/g, '/')
+	  const currentDirectory = cwd()
 	  const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
     const themeFile = \`\${currentDirectory}/static/theme.txt\`
 	  const content = await fs.promises.readFile(fileToRead);
