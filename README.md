@@ -1,33 +1,68 @@
-# create-svelte
+<img src="./quick-ship.png" alt="" />
+<p align="center">
+<img src="https://badgen.net/badge/license/MIT/blue" />
+<img src="https://badgen.net/npm/v/svelteway" />
+</p>
+<p align="center">
+<a href="https://svelteway.vercel.app">Website</a> · <a href="https://npmjs.com/package/svelteway">NPM Package</a>
+</p>
 
-A CLI for creating new [SvelteKit](https://kit.svelte.dev) projects. Just run...
+# sveltway
+
+> The most svelte way to build UI's for your svelte kit applications!
+
+## Creating a project
 
 ```bash
-npm create svelte@latest
+# create a new project in the current directory
+npm create svelteway@latest
+
+# create a new project in my-app
+npm create svelteway@latest my-app
 ```
 
-...and follow the prompts.
+## Basic usage
 
-## API
-
-You can also use `create-svelte` programmatically:
+Wrap your root +layout with `<Layout {data} />` and pass the required data prop.
 
 ```js
-import { create } from 'create-svelte';
+<script>
+import { Layout } from 'svelteway'
 
-await create('my-new-app', {
-  name: 'my-new-app',
-  template: 'default', // or 'skeleton' or 'skeletonlib'
-  types: 'checkjs', // or 'typescript' or null;
-  prettier: false,
-  eslint: false,
-  playwright: false,
-  vitest: false
-});
+export let data;
+</script>
+
+<Layout {data}>
+    <slot />
+</Layout>
 ```
 
-`checkjs` means your project will use TypeScript to typecheck JavaScript via [JSDoc comments](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html).
+For more on +layout.server code, see [the website](https://svelteway.vercel.app/installation).
 
-## License
+## Thanks
 
-[MIT](../../LICENSE).
+Special Thanks to the Svelte Team, Tailwind Labs and DaisyUI.
+
+```
+MIT License Copyright (c) 2023 Elikelier Polite
+
+Permission is hereby granted,
+free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the
+following conditions:
+
+The above copyright notice and this permission notice
+(including the next paragraph) shall be included in all copies or substantial
+portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+```
