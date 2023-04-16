@@ -1,4 +1,3 @@
-<img src="./quick-ship.png" alt="" />
 <p align="center">
 <img src="https://badgen.net/badge/license/MIT/blue" />
 <img src="https://badgen.net/npm/v/svelteway" />
@@ -25,19 +24,22 @@ npm create svelteway@latest my-app
 
 Wrap your root +layout with `<Layout {data} />` and pass the required data prop.
 
-```js
+```svelte
 <script>
 import { Layout } from 'svelteway'
 
 export let data;
+const theme = JSON.parse(data.data.theme);
 </script>
 
 <Layout {data}>
-    <slot />
+    <div data-theme={theme}>
+        <slot />
+    </div>
 </Layout>
 ```
 
-For more on +layout.server code, see [the website](https://svelteway.vercel.app/installation).
+For more on +layout.server code, see [svelteway manual setup](https://svelteway.vercel.app/installation).
 
 ## Thanks
 

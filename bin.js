@@ -134,8 +134,8 @@ const bufTs = Buffer.from(
     const currentDirectory = cwd()
     const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
     const themeFile = \`\${currentDirectory}/static/theme.txt\`
-    const content = await fs.promises.readFile(fileToRead);
     const themeContent = await fs.promises.readFile(themeFile);
+    const content = await fs.promises.readFile(fileToRead);
     return {
       data: {
         source: content.toString('utf8'),
@@ -155,8 +155,8 @@ const bufJs = Buffer.from(
 	  const currentDirectory = cwd()
 	  const fileToRead = route.id == '/' ? \`\${currentDirectory}/src/routes/+page.svelte\` : \`\${currentDirectory}/src/routes/\${route.id}/+page.svelte\`
     const themeFile = \`\${currentDirectory}/static/theme.txt\`
-	  const content = await fs.promises.readFile(fileToRead);
     const themeContent = await fs.promises.readFile(themeFile);
+	  const content = await fs.promises.readFile(fileToRead);
 		return {
 		  data: {
 		  source: content.toString('utf8'),
