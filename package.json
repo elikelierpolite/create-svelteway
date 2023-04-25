@@ -1,6 +1,6 @@
 {
 	"name": "create-svelteway",
-	"version": "0.0.34",
+	"version": "0.0.35",
 	"license": "MIT",
 	"bin": "./bin.js",
 	"main": "./index.js",
